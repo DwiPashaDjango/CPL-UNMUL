@@ -113,4 +113,14 @@ class Users_Model
 
         return $this->db->rowCount();
     }
+
+    public function resetPw($data)
+    {
+        $this->db->query("UPDATE users SET password = :password WHERE id_user = :id_user");
+        $this->db->bind('password', password_hash($data['password_update'], PASSWORD_DEFAULT));
+        $this->db->bind('id_user', $data['id_user_pw']);
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
 }

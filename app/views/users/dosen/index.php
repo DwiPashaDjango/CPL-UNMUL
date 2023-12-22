@@ -50,6 +50,7 @@
                                                 </a>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownTeamOne">
                                                     <a class="dropdown-item" onclick="showDosen(<?= $dsn['id_user'] ?>)" href="javascript:void(0)">Edit</a>
+                                                    <a class="dropdown-item" onclick="resetpw(<?= $dsn['id_user'] ?>)" href="javascript:void(0)">Reset Password</a>
                                                     <a class="dropdown-item" onclick="deleteDosen(<?= $dsn['id_user'] ?>);" href="javascript:void(0)">Hapus</a>
                                                 </div>
                                             </div>
@@ -100,6 +101,30 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-primary" id="update">Ubah</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="resetPassword" tabindex="-1" aria-labelledby="resetPasswordLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="resetPasswordLabel"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="<?= BASE_URL ?>Users/resetPassword" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="id_user_pw" id="id_user_pw">
+                    <div class="form-group mb-3">
+                        <label for="" class="mb-2">New Password <span class="text-danger">*</span></label>
+                        <input type="password" name="password_update" id="password_update" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary" id="update_pw">Ubah</button>
                 </div>
             </form>
         </div>
@@ -161,6 +186,22 @@
                     .catch(error => {
                         console.log(error);
                     })
+            }
+        })
+    }
+
+    function resetpw(id_user) {
+        $.ajax({
+            url: '<?= BASE_URL ?>Users/showDosen/' + id_user,
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                $("#resetPassword").modal('show');
+                $("#resetPasswordLabel").html('Reset Password');
+                $("#id_user_pw").val(data.id_user);
+            },
+            error: function(err) {
+                console.log(err);
             }
         })
     }

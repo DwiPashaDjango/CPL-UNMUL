@@ -223,4 +223,29 @@ class Users extends Controller
             echo json_encode("Gagal");
         }
     }
+
+    public function resetPassword()
+    {
+        try {
+            $errors = [];
+
+            if (empty($_POST['password_update'])) {
+                $errors['password_update'] = 'Masukan Password Baru';
+            }
+
+            if (empty($errors)) {
+                $this->model('Users_Model')->resetPw($_POST);
+                Flasher::setFlash('Berhasil Mengubah Password ', 'Dosen.', 'success');
+                header("Location: " . BASE_URL . "Users/dosen");
+                exit;
+            } else {
+                Flasher::setValidation($errors);
+                header("Location: " . BASE_URL . "Users/dosen");
+                exit;
+            }
+        } catch (PDOException $err) {
+            var_dump($err);
+            die;
+        }
+    }
 }

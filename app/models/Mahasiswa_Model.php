@@ -200,4 +200,18 @@ class Mahasiswa_Model
 
         return $this->db->resultSet();
     }
+
+    public function countMhsByAngkatan($kd_jrs)
+    {
+        $this->db->query(
+            "SELECT $this->table.angkatan, COUNT(*) 
+             FROM $this->table 
+             WHERE $this->table.kd_jrs = :kd_jrs
+             GROUP BY angkatan"
+        );
+        $this->db->bind('kd_jrs', $kd_jrs);
+        $this->db->execute();
+
+        return $this->db->resultSet();
+    }
 }

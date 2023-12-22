@@ -58,7 +58,7 @@
                                                 <div class="dropdown-menu" aria-labelledby="dropdownTeamOne">
                                                     <a class="dropdown-item" onclick="addCp('<?= $jrs['kd_jrs'] ?>')" href="javascript:void(0)">Tambah CP Jurusan</a>
                                                     <a class="dropdown-item" onclick="showJrs('<?= $jrs['kd_jrs'] ?>')" href="javascript:void(0)">Edit</a>
-                                                    <a class="dropdown-item" onclick="deleteJrs('<?= $jrs['kd_jrs'] ?>');" href="javascript:void(0)">Hapus</a>
+                                                    <a class="dropdown-item" onclick="deleteJrs('<?= $jrs['id_jrs'] ?>');" href="javascript:void(0)">Hapus</a>
                                                 </div>
                                             </div>
                                         </td>

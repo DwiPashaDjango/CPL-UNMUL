@@ -68,10 +68,10 @@ class Jurusan_Model
         return $this->db->rowCount();
     }
 
-    public function deleteJrs($kd_jrs)
+    public function deleteJrs($id_jrs)
     {
-        $this->db->query("DELETE FROM $this->table WHERE kd_jrs = :kd_jrs");
-        $this->db->bind('kd_jrs', $kd_jrs);
+        $this->db->query("DELETE FROM $this->table WHERE id_jrs = :id_jrs");
+        $this->db->bind('id_jrs', $id_jrs);
         $this->db->execute();
 
         return $this->db->rowCount();

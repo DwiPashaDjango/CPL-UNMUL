@@ -17,9 +17,7 @@ class Dashboard extends Controller
             $data['mhs_active_count'] = $this->model('Count_Model')->countMhsActive($kd_jrs);
             $data['mhs_lulus_count']  = $this->model('Count_Model')->countLulusan($kd_jrs);
             $data['count_mk_by_jrs']  = $this->model('Count_Model')->countMkByKdJrs($kd_jrs);
-
-            // var_dump($data['mhs_active_count'][0]);
-            // die;
+            $data['chart_json'] = $this->model('Mahasiswa_Model')->countMhsByAngkatan($kd_jrs);
 
             $this->view('layouts/header', $data);
             $this->view('layouts/sidebar', $data);

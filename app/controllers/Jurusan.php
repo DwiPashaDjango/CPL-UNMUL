@@ -82,9 +82,9 @@ class Jurusan extends Controller
         }
     }
 
-    public function destroy($kd_jrs)
+    public function destroy($id_jrs)
     {
-        if ($this->model('Jurusan_Model')->deleteJrs($kd_jrs) > 0) {
+        if ($this->model('Jurusan_Model')->deleteJrs($id_jrs) > 0) {
             echo json_encode("Berhasil");
         } else {
             echo json_encode("Gagal");

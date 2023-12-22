@@ -48,6 +48,9 @@ class Mahasiswa extends Controller
     public function import()
     {
         try {
+            $data['auth']  = $this->model('Auth_Model')->getUserLogin();
+            $kd_jrs = $data['auth']['kd_jrs'];
+
             $file = $_FILES['file']['tmp_name'];
 
             $spreadsheet = IOFactory::load($file);
@@ -58,9 +61,8 @@ class Mahasiswa extends Controller
                 $name = $worksheet[$row][0];
                 $nrp = $worksheet[$row][1];
                 $email = $worksheet[$row][2];
-                $kd_jrs = $worksheet[$row][3];
-                $angkatan = $worksheet[$row][4];
-                $strata = $worksheet[$row][5];
+                $angkatan = $worksheet[$row][3];
+                $strata = $worksheet[$row][4];
 
                 $data[] = array(
                     "name" => $name,

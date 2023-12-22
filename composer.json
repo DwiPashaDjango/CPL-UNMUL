@@ -1,0 +1,9 @@
+{
+    "require": {
+        "dompdf/dompdf": "^2.0",
+        "phpoffice/phpspreadsheet": "^1.25"
+    },
+    "scripts": {
+        "start": "php -S localhost:8000"
+    }
+}

@@ -48,36 +48,60 @@ class Mahasiswa extends Controller
     public function import()
     {
         try {
-            $data['auth']  = $this->model('Auth_Model')->getUserLogin();
+            $data['auth'] = $this->model('Auth_Model')->getUserLogin();
             $kd_jrs = $data['auth']['kd_jrs'];
 
             $file = $_FILES['file']['tmp_name'];
 
-            $spreadsheet = IOFactory::load($file);
+            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
             $worksheet = $spreadsheet->getActiveSheet()->toArray();
 
-            $data = array();
-            for ($row = 1; $row < count($worksheet); $row++) {
-                $name = $worksheet[$row][0];
-                $nrp = $worksheet[$row][1];
-                $email = $worksheet[$row][2];
-                $angkatan = $worksheet[$row][3];
-                $strata = $worksheet[$row][4];
+            $headerRow = $worksheet[0];
+            $isHeader = is_string($headerRow[0]);
 
-                $data[] = array(
-                    "name" => $name,
-                    "nrp" => $nrp,
-                    "email" => $email,
-                    "kd_jrs" => $kd_jrs,
-                    "angkatan" => $angkatan,
-                    "strata" => $strata
-                );
+            if ($isHeader) {
+                array_shift($worksheet);
             }
-            $this->model('Mahasiswa_Model')->importMhs($data);
 
-            Flasher::setFlash('Berhasil Mengimport Data ', 'Mahasiswa', 'success');
+            $newData = array();
+            $duplicateEntries = array();
+            foreach ($worksheet as $row) {
+                $name = $row[0];
+                $nrp = $row[1];
+                $email = $row[2];
+                $angkatan = $row[3];
+                $strata = $row[4];
+
+                $isDuplicate = $this->model('Mahasiswa_Model')->getNrpMhsByJrs($nrp, $kd_jrs);
+
+                if ($isDuplicate) {
+                    $duplicateEntries[] = array(
+                        "name" => $name,
+                        "nrp" => $nrp,
+                        "email" => $email,
+                        "angkatan" => $angkatan,
+                        "strata" => $strata
+                    );
+                } else {
+                    $newData[] = array(
+                        "name" => $name,
+                        "nrp" => $nrp,
+                        "email" => $email,
+                        "kd_jrs" => $kd_jrs,
+                        "angkatan" => $angkatan,
+                        "strata" => $strata
+                    );
+                }
+            }
+
+            if (!empty($duplicateEntries)) {
+                Flasher::setFlash('Terdapat NIM yang sama, data tidak dimasukkan', '', 'danger');
+            } else {
+                $this->model('Mahasiswa_Model')->importMhs($newData);
+                Flasher::setFlash('Berhasil Mengimport Data ', 'Mahasiswa', 'success');
+            }
             header("Location: " . BASE_URL . "Mahasiswa");
-        } catch (PDOException $err) {
+        } catch (\PDOException $err) {
             var_dump($err);
             die;
         }

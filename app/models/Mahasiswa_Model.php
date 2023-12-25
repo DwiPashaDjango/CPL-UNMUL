@@ -214,4 +214,14 @@ class Mahasiswa_Model
 
         return $this->db->resultSet();
     }
+
+    public function getNrpMhsByJrs($nrp, $kd_jrs)
+    {
+        $this->db->query("SELECT * FROM mahasiswa WHERE nrp = :nrp AND kd_jrs = :kd_jrs");
+        $this->db->bind('nrp', $nrp);
+        $this->db->bind('kd_jrs', $kd_jrs);
+        $this->db->execute();
+
+        return $this->db->resultSet();
+    }
 }

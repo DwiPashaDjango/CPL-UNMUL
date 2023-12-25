@@ -61,6 +61,7 @@
                                                             $bobot_cp = ($mk['sks'] * $mk['cp_' . $i]);
                                                             $persen = ($bobot_cp / $data['total_bobot_percp']['cp_' . $i]) * 100;
 
+                                                            $column_totals[$i] = 0;
                                                             foreach ($data['nilai'] as $nk) {
                                                                 if ($nk['mhs_id'] == $mhs['id_mhs'] && $nk['kd_mk'] == $mk['kd_mk']) {
                                                                     $nilai_mhs = $nk['bobot'];
@@ -106,6 +107,7 @@
                                                             $bobot_cp = ($mk['sks'] * $mk['cp_' . $i]);
                                                             $persen = ($bobot_cp / $data['total_bobot_percp']['cp_' . $i]) * 100;
 
+                                                            $column_totals[$i] = 0;
                                                             foreach ($data['nilai'] as $nk) {
                                                                 if ($nk['mhs_id'] == $mhs['id_mhs'] && $nk['kd_mk'] == $mk['kd_mk']) {
                                                                     $nilai_mhs = $nk['bobot'];
@@ -162,7 +164,7 @@
                                                     if ($mk['cp_' . $i] != null) {
                                                         $bobot_cp = ($mk['sks'] * $mk['cp_' . $i]);
                                                         $persen = ($bobot_cp / $data['total_bobot_percp']['cp_' . $i]) * 100;
-
+                                                        $total_cp[$i] = 0;
                                                         foreach ($data['nilai'] as $nk) {
                                                             if ($nk['mhs_id'] == $mhs['id_mhs'] && $nk['kd_mk'] == $mk['kd_mk']) {
                                                                 $nilai_mhs = $nk['bobot'];
@@ -226,6 +228,7 @@
                                                         $bobot_cp = ($mk['sks'] * $mk['cp_' . $i]);
                                                         $persen = ($bobot_cp / $data['total_bobot_percp']['cp_' . $i]) * 100;
 
+                                                        $column_totals[$i] = 0;
                                                         foreach ($data['nilai'] as $nk) {
                                                             if ($nk['kd_mk'] == $mk['kd_mk']) {
                                                                 $nilai_mhs = $nk['bobot'];
@@ -280,7 +283,7 @@ foreach ($data['mhs'] as $mhs) {
             if ($mk['cp_' . $i] != null) {
                 $bobot_cp = ($mk['sks'] * $mk['cp_' . $i]);
                 $persen = ($bobot_cp / $data['total_bobot_percp']['cp_' . $i]) * 100;
-
+                $total_cp_json[$i] = 0;
                 foreach ($data['nilai'] as $nk) {
                     if ($nk['mhs_id'] == $mhs['id_mhs'] && $nk['kd_mk'] == $mk['kd_mk']) {
                         $nilai_mhs = $nk['bobot'];
